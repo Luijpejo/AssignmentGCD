@@ -1,3 +1,4 @@
+README.md
 This document is part of the final assignment of Joost Luijpers for course 3, Getting and Cleaining Data, of the specialisation Data Scientist of the John Hopkins University, as provided via Coursera.
 The documents that are part of this assignment are this Readme.md-document, the codebook and the tidy dataset "finaldataset.txt"
  
