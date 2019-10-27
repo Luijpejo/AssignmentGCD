@@ -1,0 +1,204 @@
+Codebook Finaldataset 
+=================
+This document describes the variables of the file finaldataset.
+That file has been created as part of the assignment for the course "Getting and Cleaning Data" of the Data Scientist specilisation of John Hopkins University as provided via Coursera.
+The raw data for this assignment comes from a research done as described in the following article:
+[1] Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. Human Activity Recognition on Smartphones using a Multiclass Hardware-Friendly Support Vector Machine. International Workshop of Ambient Assisted Living (IWAAL 2012). Vitoria-Gasteiz, Spain. Dec 2012
+ÿ
+Because of that, this codebook contains four sections:
+A. A reference to the description of the research that was the basis for the collected data. Source = 
+B. A description of the features as given by the research - copied from the file featuress_info.txt of the research.
+C. A description of the analysis I have done
+D. A description of the variables in the final dataset
+ÿ
+ÿ
+A. REFERENCE
+The data linked to from the course website represent data collected from the accelerometers from the Samsung Galaxy S smartphone. A full description is available at the site where the data was obtained:
+http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones 
+ÿ
+B. FEATURE DESCRIPTION
+The following text has been copied from the readme-file that accompanied the original data. Repeated here to have the starting point of the data.
+ÿ
+<START TEXT>
+The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. These time domain signals (prefix 't' to denote time) were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) using another low pass Butterworth filter with a corner frequency of 0.3 Hz. 
+ÿ
+Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals (tBodyAccJerk-XYZ and tBodyGyroJerk-XYZ). Also the magnitude of these three-dimensional signals were calculated using the Euclidean norm (tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag). 
+ÿ
+Finally a Fast Fourier Transform (FFT) was applied to some of these signals producing fBodyAcc-XYZ, fBodyAccJerk-XYZ, fBodyGyro-XYZ, fBodyAccJerkMag, fBodyGyroMag, fBodyGyroJerkMag. (Note the 'f' to indicate frequency domain signals). 
+ÿ
+These signals were used to estimate variables of the feature vector for each pattern:ÿ 
+'-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
+ÿ
+tBodyAcc-XYZ
+tGravityAcc-XYZ
+tBodyAccJerk-XYZ
+tBodyGyro-XYZ
+tBodyGyroJerk-XYZ
+tBodyAccMag
+tGravityAccMag
+tBodyAccJerkMag
+tBodyGyroMag
+tBodyGyroJerkMag
+fBodyAcc-XYZ
+fBodyAccJerk-XYZ
+fBodyGyro-XYZ
+fBodyAccMag
+fBodyAccJerkMag
+fBodyGyroMag
+fBodyGyroJerkMag
+ÿ
+The set of variables that were estimated from these signals are: 
+ÿ
+mean(): Mean value
+std(): Standard deviation
+mad(): Median absolute deviation 
+max(): Largest value in array
+min(): Smallest value in array
+sma(): Signal magnitude area
+energy(): Energy measure. Sum of the squares divided by the number of values. 
+iqr(): Interquartile range 
+entropy(): Signal entropy
+arCoeff(): Autorregresion coefficients with Burg order equal to 4
+correlation(): correlation coefficient between two signals
+maxInds(): index of the frequency component with largest magnitude
+meanFreq(): Weighted average of the frequency components to obtain a mean frequency
+skewness(): skewness of the frequency domain signal 
+kurtosis(): kurtosis of the frequency domain signal 
+bandsEnergy(): Energy of a frequency interval within the 64 bins of the FFT of each window.
+angle(): Angle between to vectors.
+ÿ
+Additional vectors obtained by averaging the signals in a signal window sample. These are used on the angle() variable:
+ÿ
+gravityMean
+tBodyAccMean
+tBodyAccJerkMean
+tBodyGyroMean
+tBodyGyroJerkMean
+ÿ
+<END TEXT>
+ÿ
+ÿ
+C. PERFORMED ANALYSIS
+The data as provided by the research has been the basis for the analysis.
+Based on this data further analysis have been made, using the script "run_analysis.R".
+For the programmatic details of that analysis I refer to the Readme.md document that accompanies this codebook and to the R-document itself.
+ÿ
+The steps that have been taken in this analysis are the following:
+ÿ
+1. the data has been gathered into one combined data set. The data was split in various separate tables and divided over two sets: a train set and a test set.
+a. The files of the train set have been combined: subjects, activities and all 561 measure results
+b. The files of the test set have been combined: subjects, activities and all 561 measure results
+c. The two resulting data sets (data set for train and data set for test) have been combined in one combined data set.
+ÿ
+2. From the combined data set, a subset has been created of these variables that deal with either the means or the standard deviation.
+a. The subject and the activity name have been selected.
+b. A selection is made of all the variables that either contain "mean" or "std" in their variable name. This resulted in 79 variables.
+ÿ
+3. The total data set of 79 variables, that was a result of the selection on mean and standard deviation, have been grouped and on the groups a mean has been calculated for each variable.
+a. The total data set was grouped based on the variables "subject" and "activityname". The result was 40 unique combinations of subject - activity name.
+b. On these 40 groups the mean has been calculated for each of the 79 variables of step 2b.
+c. The result has been written in the file "finaldataset.txt".
+ÿ
+ÿ
+D. VARIABLES
+The final data set contains the following variables:
+ÿ
+1. Subject
+Descriptionthe person that performs the activity that was measured for this research. This variable is used to group on.TypeIntegerValues1 to 30ÿ
+2. Activityname
+DescriptionThe activity performed by the subject in the context of the research. This variable is used to group on.TypeCharacterValuesSix different activities: 
+WALKING
+WALKING_UPSTAIRS
+WALKING_DOWNSTAIRS
+SITTING
+STANDING
+LAYINGÿ
+3. Value variables
+DescriptionAll the value variables contain the mean of their measured result based on grouping the measurements on subject and activityname. 
+ÿ
+Explanation:
+Each original result had been based on the measurements made by the Accelerator and the Gyroscope. Per performed activity 128 measurements were taken within a timeframe of 2.56 seconds. Based on that both the mean and the standard deviation was recorded in the Value variables. That was the original data.
+ÿ
+Each subject has performed the activities more than once. Therefore all the data was grouped on both subject and activityname. Based on these groups the mean has been taken for all Value variables.
+The result is per subject, per activity the mean of the original value of either the mean or standard deviation value of the original performance measurement.TypeDoublesValuesA large variety of doubles.The above (at 3.) applies to each of the following variables: 
+
+tBodyAcc-mean()-X
+tBodyAcc-mean()-Y
+tBodyAcc-mean()-Z
+tBodyAcc-std()-X
+tBodyAcc-std()-Y
+tBodyAcc-std()-Z
+tGravityAcc-mean()-X
+tGravityAcc-mean()-Y
+tGravityAcc-mean()-Z
+tGravityAcc-std()-X
+tGravityAcc-std()-Y
+tGravityAcc-std()-Z
+tBodyAccJerk-mean()-X
+tBodyAccJerk-mean()-Y
+tBodyAccJerk-mean()-Z
+tBodyAccJerk-std()-X
+tBodyAccJerk-std()-Y
+tBodyAccJerk-std()-Z
+tBodyGyro-mean()-X
+tBodyGyro-mean()-Y
+tBodyGyro-mean()-Z
+tBodyGyro-std()-X
+tBodyGyro-std()-Y
+tBodyGyro-std()-Z
+tBodyGyroJerk-mean()-X
+tBodyGyroJerk-mean()-Y
+tBodyGyroJerk-mean()-Z
+tBodyGyroJerk-std()-X
+tBodyGyroJerk-std()-Y
+tBodyGyroJerk-std()-Z
+tBodyAccMag-mean()
+tBodyAccMag-std()
+tGravityAccMag-mean()
+tGravityAccMag-std()
+tBodyAccJerkMag-mean()
+tBodyAccJerkMag-std()
+tBodyGyroMag-mean()
+tBodyGyroMag-std()
+tBodyGyroJerkMag-mean()
+tBodyGyroJerkMag-std()
+fBodyAcc-mean()-X
+fBodyAcc-mean()-Y
+fBodyAcc-mean()-Z
+fBodyAcc-std()-X
+fBodyAcc-std()-Y
+fBodyAcc-std()-Z
+fBodyAcc-meanFreq()-X
+fBodyAcc-meanFreq()-Y
+fBodyAcc-meanFreq()-Z
+fBodyAccJerk-mean()-X
+fBodyAccJerk-mean()-Y
+fBodyAccJerk-mean()-Z
+fBodyAccJerk-std()-X
+fBodyAccJerk-std()-Y
+fBodyAccJerk-std()-Z
+fBodyAccJerk-meanFreq()-X
+fBodyAccJerk-meanFreq()-Y
+fBodyAccJerk-meanFreq()-Z
+fBodyGyro-mean()-X
+fBodyGyro-mean()-Y
+fBodyGyro-mean()-Z
+fBodyGyro-std()-X
+fBodyGyro-std()-Y
+fBodyGyro-std()-Z
+fBodyGyro-meanFreq()-X
+fBodyGyro-meanFreq()-Y
+fBodyGyro-meanFreq()-Z
+fBodyAccMag-mean()
+fBodyAccMag-std()
+fBodyAccMag-meanFreq()
+fBodyBodyAccJerkMag-mean()
+fBodyBodyAccJerkMag-std()
+fBodyBodyAccJerkMag-meanFreq()
+fBodyBodyGyroMag-mean()
+fBodyBodyGyroMag-std()
+fBodyBodyGyroMag-meanFreq()
+fBodyBodyGyroJerkMag-mean()
+fBodyBodyGyroJerkMag-std()
+fBodyBodyGyroJerkMag-meanFreq()
+
